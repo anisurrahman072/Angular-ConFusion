@@ -2,5 +2,12 @@
 
 @import '~@angular/material/prebuilt-themes/deeppurple-amber';
 
+// after writing app.component.html
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// after writing on menu.component.html
+.container{
+    margin: 20px;
+    display: flex;
+}
