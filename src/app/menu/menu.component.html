@@ -1,12 +1,38 @@
 <div class="container"
     fxLayout="column" fxLayoutGap="10px">
 
-    <mat-list fxFlex> <!-- fxFlex represents a unique item of flex -->
-        <mat-list-item *ngFor="let dish of dishes">
-            <img matListAvatar src="{{dish.image}}" alt=" {{dish.name}} ">
-            <h1 matLine> {{dish.name}} </h1>
-            <p matLine> {{dish.description}} </p>
-        </mat-list-item>
-    </mat-list>
+    <div fxFlex>
+        <div>
+            <h1>Menu</h1>
+            <hr>
+        </div>
+    </div>
+
+    <div fxFlex> <!-- fxFlex represents a unique item of flex -->
+        <mat-grid-list cols="2" rowHeight="200px">
+            <mat-grid-tile *ngFor="let dish of dishes">
+                <img height="200px" src="{{dish.image}}" alt=" {{dish.name}}">
+                <mat-grid-tile-footer> {{dish.name | uppercase}} </mat-grid-tile-footer>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+
+    <div fxFlex *ngIf="selectedDish">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>
+                    <h3>{{selectedDish.name | uppercase}}</h3>
+                </mat-card-title>
+            </mat-card-header>
+            <img mat-card-image src={{selectedDish.image}} alt={{selectedDish.name}} height="400px">
+            <mat-card-content>
+                <p>{{selectedDish.description}}</p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button>Like</button>
+                <button mat-button>Share</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
 
 </div>
