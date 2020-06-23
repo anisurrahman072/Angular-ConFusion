@@ -14,6 +14,7 @@ export const routes: Routes = [
     {path: 'home', component: HomeComponent},
     {path: 'menu', component: MenuComponent},
     {path: 'contactus', component: ContactComponent},
+    {path: 'about', component: AboutComponent},
     {path: 'dishdetail/:id', component: DishdetailComponent}, /* "id" kotha ta ami iccha moto dici. Tobe jeita 
 akhane diba seitae dishdetail.ts ar params['id'] ar moddhe avabe dite hobe */
     {path: '', redirectTo: '/home', pathMatch: 'full'} // Application will select '/home' in it's first reload
