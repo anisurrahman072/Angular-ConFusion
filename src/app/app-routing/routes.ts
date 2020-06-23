@@ -9,10 +9,12 @@ import { DishdetailComponent } from '../dishdetail/dishdetail.component';
 import { HomeComponent } from '../home/home.component';
 import { AboutComponent } from '../about/about.component';
 import { ContactComponent } from '../contact/contact.component';
-
+ 
 export const routes: Routes = [
     {path: 'home', component: HomeComponent},
     {path: 'menu', component: MenuComponent},
     {path: 'contactus', component: ContactComponent},
+    {path: 'dishdetail/:id', component: DishdetailComponent}, /* "id" kotha ta ami iccha moto dici. Tobe jeita 
+akhane diba seitae dishdetail.ts ar params['id'] ar moddhe avabe dite hobe */
     {path: '', redirectTo: '/home', pathMatch: 'full'} // Application will select '/home' in it's first reload
 ];
