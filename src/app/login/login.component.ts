@@ -9,9 +9,20 @@ import { from } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  user = {
+    username: '', // empty string
+    password: '', // empty string
+    remember: false
+  };
+
+  constructor(private dialogRef: MatDialogRef<LoginComponent>) { } // MatDialogRef <dialog>
 
   ngOnInit(): void {
+  }
+
+  onSubmit(){
+    console.log(this.user);
+    this.dialogRef.close();
   }
 
 }
