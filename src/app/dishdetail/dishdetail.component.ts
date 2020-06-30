@@ -23,7 +23,8 @@ export class DishdetailComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.params['id']; /* params[] gives me permission to 
 access the route Parameter || Params[] is an array to which I can index using the id as the value */
-    this.dish = this.dishservice.getDish(id);
+    this.dishservice.getDish(id)
+    .then((dish) => this.dish=dish);
   }
 
   goBack(): void {
