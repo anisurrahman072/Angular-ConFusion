@@ -4,7 +4,7 @@
     fxLayout.xs="column"
     fxLayoutAlign.gt-md="space-around center"
     fxLayoutGap="10px" 
-    fxLayoutGap.xs="0">
+    fxLayoutGap.xs="0" *ngIf="dish">
 
   <div fxFlex="40">
     <mat-card *ngIf="dish">
@@ -36,4 +36,9 @@
     </mat-list>
   </div>
 
+</div>
+
+<div [hidden]="dish">
+    <mat-spinner></mat-spinner>
+    Loading....
 </div>
