@@ -70,6 +70,7 @@ export class ContactComponent implements OnInit {
   onSubmit(){
     this.feedback = this.feedbackForm.value;
     console.log(this.feedback);
+    this.feedbackFormDirective.resetForm(); // This will make Form UI in pristine state
     this.feedbackForm.reset({
       firstname: '',
       lastname: '',
@@ -80,7 +81,6 @@ export class ContactComponent implements OnInit {
       message: ''
       }
     );
-    this.feedbackFormDirective.resetForm(); // This will make Form UI in pristine state
   }
 
   /// onValueChanged() method ar comment kora line gulo add na korlew shob kisui kaj kortece thikvabe
