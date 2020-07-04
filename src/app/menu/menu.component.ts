@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject} from '@angular/core';
+
 import { Dish } from '../shared/dish';
 import { DishService } from '../services/dish.service';
 
@@ -9,16 +10,14 @@ import { DishService } from '../services/dish.service';
 })
 export class MenuComponent implements OnInit {
   dishes: Dish[]; // dishes = DISHES
-  selectedDish : Dish; // selectedDish would carry an object of Dish type
 
-  constructor(private dishService: DishService) {} // The DishService is injected into a new object dishService
+  constructor(private dishService: DishService,
+    @Inject('BaseURL') public BaseURL) /* @Inject comes here for injecting a value within 
+    constructor (This value is declared as a service in app.module.ts) || BaseURL ke 
+    public na dile HTML a use korlei error dekhabe */{}
 
   ngOnInit(): void {
     this.dishService.getDishes()
     .subscribe((dishes) => this.dishes=dishes);
-  }
-
-  onSelect(dish: Dish){
-    this.selectedDish = dish;
   }
 }

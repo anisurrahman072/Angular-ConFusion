@@ -13,7 +13,7 @@
             <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]"> 
 <!-- uporer line ar moddhe  dish.id  ar value ami e DISHES ARRAY ar moddhe die dieci. Amr dewa value e 
 pass hocce dishdetail component a -->
-                <img height="200px" src="{{dish.image}}" alt=" {{dish.name}}">
+                <img height="200px" src="{{ BaseURL + dish.image }}" alt={{dish.name}}>
                 <mat-grid-tile-footer> {{dish.name | uppercase}} </mat-grid-tile-footer>
             </mat-grid-tile>
         </mat-grid-list>
