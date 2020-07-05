@@ -17,6 +17,7 @@ import { from } from 'rxjs';
 })
 export class DishdetailComponent implements OnInit {
 
+  dishCopy: Dish;
   dish: Dish; // dish would carry an object of Dish type & initially dish has nothing
   dishIds: string[];
   prev: string;
@@ -58,7 +59,7 @@ export class DishdetailComponent implements OnInit {
     this.route.params /* this params is an observable of ActivatedRoute service */
       .pipe(switchMap((params: Params) => this.dishservice.getDish(params['id']))) /* here Params is a 
 thing of Angular Router which just fetch id from parameter id || and params is not an observable here*/
-      .subscribe((dish) => { this.dish = dish; this.setPrevNext(dish.id) },
+      .subscribe((dish) => { this.dish = dish; this.dishCopy = dish; this.setPrevNext(dish.id) },
         (errmess) => this.errMss = <any>errmess);
   }
 
@@ -93,7 +94,10 @@ thing of Angular Router which just fetch id from parameter id || and params is n
     });
     this.comment.date = new Date().toISOString(); /* adding "date" prototype in "comment" object || 
 JavaScript method "toISOString()" auto creates current date for me */
-    this.dish.comments.push(this.comment);  // pushing "comment" object into comments of Dish class
+    this.dishCopy.comments.push(this.comment);  // pushing "comment" object into comments of Dish class
+    this.dishservice.putDish(this.dishCopy)
+      .subscribe((dish) => {this.dish=dish; this.dishCopy=dish},
+      errMss => {this.dish=null; this.dishCopy=null; this.errMss = <any>errMss})
   }
 
   onValueChange(data?: any){
