@@ -24,6 +24,7 @@ export class DishdetailComponent implements OnInit {
   commentForm: FormGroup;
   comment: Comment;
   date: string;
+  errMss: string;
   @ViewChild('fform')commentFormDirective;
 
   formErrors = {
@@ -52,11 +53,13 @@ export class DishdetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.dishservice.getDishIds()
-      .subscribe(dishIds => this.dishIds = dishIds);
+      .subscribe(dishIds => this.dishIds = dishIds,
+        (errmess) => this.errMss = <any>errmess);
     this.route.params /* this params is an observable of ActivatedRoute service */
       .pipe(switchMap((params: Params) => this.dishservice.getDish(params['id']))) /* here Params is a 
-thing of Angular Router which just fetch id from parameter id || and params id not an observable here*/
-      .subscribe((dish) => { this.dish = dish; this.setPrevNext(dish.id) });
+thing of Angular Router which just fetch id from parameter id || and params is not an observable here*/
+      .subscribe((dish) => { this.dish = dish; this.setPrevNext(dish.id) },
+        (errmess) => this.errMss = <any>errmess);
   }
 
   setPrevNext(dishId: string){

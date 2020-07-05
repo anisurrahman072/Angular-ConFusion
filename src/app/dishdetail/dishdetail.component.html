@@ -70,7 +70,11 @@
 
 </div>
 
-<div [hidden]="dish">
+<div [hidden]="dish || errMss"> <!-- here dish contains VALUE & errMss contains the ERROE (if occured) -->
     <mat-spinner></mat-spinner>
     Loading....
+</div>
+<div *ngIf="errMss">
+    <h1>Error</h1>
+    <p>{{errMss}}</p>
 </div>

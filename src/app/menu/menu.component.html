@@ -18,9 +18,13 @@ pass hocce dishdetail component a -->
             </mat-grid-tile>
         </mat-grid-list>
     </div>
-    <div [hidden]="dishes">
+    <div [hidden]="dishes || errMss"> <!-- here dishes contains VALUE & errMss contains the ERROE (if occured) -->
         <mat-spinner></mat-spinner>
         Loading....
+    </div>
+    <div *ngIf="errMss">
+        <h1>Error</h1>
+        <p>{{errMss}}</p>
     </div>
 
 </div>

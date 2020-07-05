@@ -10,6 +10,7 @@ import { DishService } from '../services/dish.service';
 })
 export class MenuComponent implements OnInit {
   dishes: Dish[]; // dishes = DISHES
+  errMss: string;
 
   constructor(private dishService: DishService,
     @Inject('BaseURL') public BaseURL) /* @Inject comes here for injecting a value within 
@@ -18,6 +19,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.dishService.getDishes()
-    .subscribe((dishes) => this.dishes=dishes);
+    .subscribe((dishes) => this.dishes=dishes,
+    (error) => this.errMss = <any>error);
   }
 }

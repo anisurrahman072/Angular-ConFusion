@@ -17,9 +17,13 @@
     <p>{{dish.description}}</p>
   </mat-card-content>
 </mat-card>
-<div [hidden]="dish">
+<div [hidden]="dish || dishErrMess"> <!-- here dish contains VALUE & dishErrMess contains the ERROE (if occured) -->
   <mat-spinner></mat-spinner>
   Loading....
+</div>
+<div *ngIf="dishErrMess">
+  <h1>Error</h1>
+  <p>{{dishErrMess}}</p>
 </div>
 
 <mat-card *ngIf="promotion" fxFlex>
