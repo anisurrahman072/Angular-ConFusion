@@ -10,7 +10,7 @@
 
     <div fxFlex *ngIf="dishes"> <!-- fxFlex represents a unique item of flex -->
         <mat-grid-list cols="2" rowHeight="200px">
-            <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]"> 
+            <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]" appHighlight> 
 <!-- uporer line ar moddhe  dish.id  ar value ami e DISHES ARRAY ar moddhe die dieci. Amr dewa value e 
 pass hocce dishdetail component a -->
                 <img height="200px" src="{{ BaseURL + dish.image }}" alt={{dish.name}}>
