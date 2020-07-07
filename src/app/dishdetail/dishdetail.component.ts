@@ -7,13 +7,27 @@ import {Params, ActivatedRoute } from '@angular/router'; /* ActivatedRoute servi
 access the URL that come from Menu Component || Params na use korew shob kisu kaj kortecilo*/
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { switchMap } from 'rxjs/operators';
 import { from } from 'rxjs';
 
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
-  styleUrls: ['./dishdetail.component.scss']
+  styleUrls: ['./dishdetail.component.scss'],
+  animations: [
+    trigger('visibility', [
+      state('shown', style({
+        transform: 'scale(1)',
+        opacity: 1
+      })),
+      state('hidden', style({
+        transform: 'scale(0.5)',
+        opacity: 0
+      })),
+      transition('* => *', animate('0.5s ease-in-out'))
+    ])
+  ]
 })
 export class DishdetailComponent implements OnInit {
 
@@ -26,6 +40,7 @@ export class DishdetailComponent implements OnInit {
   comment: Comment;
   date: string;
   errMss: string;
+  visibility = 'shown'; 
   @ViewChild('fform')commentFormDirective;
 
   formErrors = {
@@ -57,9 +72,9 @@ export class DishdetailComponent implements OnInit {
       .subscribe(dishIds => this.dishIds = dishIds,
         (errmess) => this.errMss = <any>errmess);
     this.route.params /* this params is an observable of ActivatedRoute service */
-      .pipe(switchMap((params: Params) => this.dishservice.getDish(params['id']))) /* here Params is a 
+      .pipe(switchMap((params: Params) => {this.visibility = 'hidden'; return this.dishservice.getDish(params['id'])})) /* here Params is a 
 thing of Angular Router which just fetch id from parameter id || and params is not an observable here*/
-      .subscribe((dish) => { this.dish = dish; this.dishCopy = dish; this.setPrevNext(dish.id) },
+      .subscribe((dish) => {this.visibility = 'shown'; this.dish = dish; this.dishCopy = dish; this.setPrevNext(dish.id) },
         (errmess) => this.errMss = <any>errmess);
   }
 
