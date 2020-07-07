@@ -2,12 +2,12 @@ import { Component, OnInit, ViewChild, Inject} from '@angular/core';
 import { Dish } from '../shared/dish';
 import { DishService } from '../services/dish.service';
 import { Comment } from '../shared/Comment';
+import { visibility, expand } from '../animations/app.animation';
 
 import {Params, ActivatedRoute } from '@angular/router'; /* ActivatedRoute service gives me permissopn to 
 access the URL that come from Menu Component || Params na use korew shob kisu kaj kortecilo*/
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { trigger, state, style, animate, transition } from '@angular/animations';
 import { switchMap } from 'rxjs/operators';
 import { from } from 'rxjs';
 
@@ -16,17 +16,8 @@ import { from } from 'rxjs';
   templateUrl: './dishdetail.component.html',
   styleUrls: ['./dishdetail.component.scss'],
   animations: [
-    trigger('visibility', [
-      state('shown', style({
-        transform: 'scale(1)',
-        opacity: 1
-      })),
-      state('hidden', style({
-        transform: 'scale(0.5)',
-        opacity: 0
-      })),
-      transition('* => *', animate('0.5s ease-in-out'))
-    ])
+    visibility(),
+    expand()
   ]
 })
 export class DishdetailComponent implements OnInit {
