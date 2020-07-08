@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { Feedback, ContactType } from '../shared/feedback';
-import { flyInOut } from '../animations/app.animation';
+import { flyInOut, expand } from '../animations/app.animation';
+import { FeedbackService } from '../services/feedback.service';
+
   import { from } from 'rxjs';
 
 @Component({
@@ -13,14 +16,18 @@ import { flyInOut } from '../animations/app.animation';
     'style': 'display: block;'
     },
   animations: [
-    flyInOut()
+    flyInOut(),
+    expand()
   ]
 })
 export class ContactComponent implements OnInit {
 
   feedbackForm: FormGroup;
   feedback: Feedback;
+  newFeedBack: Feedback;
   contactType = ContactType;
+  displayState = "INPUTFORM";
+  errMsg: string;
   @ViewChild('fform')feedbackFormDirective; // It will allow me to access HTML elements
 
   formErrors = {
@@ -51,7 +58,8 @@ export class ContactComponent implements OnInit {
     }
   };
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private feedbackService: FeedbackService) {
     this.createForm();
   }
 
@@ -77,7 +85,14 @@ export class ContactComponent implements OnInit {
 
   onSubmit(){
     this.feedback = this.feedbackForm.value;
-    console.log(this.feedback);
+    this.displayState = "SPINNER";
+    this.feedbackService.submitFeedback(this.feedback)
+        .subscribe(newFeedBack => {
+          this.displayState = "SUBMISSION";
+          this.newFeedBack = newFeedBack; 
+          setTimeout(() => {this.displayState = "INPUTFORM"}, 5000);
+        },
+        errMsg => {this.displayState="ERROR"; this.errMsg = errMsg});/* Server a POST korar jonno atleast akta empty .subscribe() use kortei hobe */
     this.feedbackFormDirective.resetForm(); // This will make Form UI in pristine state
     this.feedbackForm.reset({
       firstname: '',
